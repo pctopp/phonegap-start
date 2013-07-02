@@ -36,7 +36,8 @@ var app = {
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
-    receivedEvent: function(id) {
+    receivedEvent: function (id) {
+
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
@@ -44,17 +45,17 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        alert("Hello");
+        setTimeout(function () {
 
-        console.log('Received Event: ' + id);
+        	var xhr = new XMLHttpRequest();
+        	xhr.open("GET", "http://192.168.100.111/login.aspx", true);
+        	xhr.onreadystatechange = function () {
+        		alert("Hello XXX");
+        		if (xhr.readyState == 4 && xhr.status == 200)
+        			alert(xhr.responseText);
+        	};
+        	xhr.send();
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://192.168.100.111/login.aspx", true);
-        xhr.onreadystatechange = function () {
-        	alert("Hello XXX");
-        	if (xhr.readyState == 4 && xhr.status == 200)
-        		alert(xhr.responseText);
-        };
-        xhr.send();
+        }, 5000);
     }
 };

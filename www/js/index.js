@@ -17,45 +17,63 @@
  * under the License.
  */
 var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function (id) {
+	// Application Constructor
+	initialize: function() {
+		this.bindEvents();
+	},
+	// Bind Event Listeners
+	//
+	// Bind any events that are required on startup. Common events are:
+	// 'load', 'deviceready', 'offline', and 'online'.
+	bindEvents: function() {
+		document.addEventListener('deviceready', this.onDeviceReady, false);
+	},
+	// deviceready Event Handler
+	//
+	// The scope of 'this' is the event. In order to call the 'receivedEvent'
+	// function, we must explicity call 'app.receivedEvent(...);'
+	onDeviceReady: function() {
+		app.receivedEvent('deviceready');
+	},
+	// Update DOM on a Received Event
+	receivedEvent: function (id) {
 
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+		var parentElement = document.getElementById(id);
+		var listeningElement = parentElement.querySelector('.listening');
+		var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+		listeningElement.setAttribute('style', 'display:none;');
+		receivedElement.setAttribute('style', 'display:block;');
 
-        setTimeout(function () {
+		setTimeout(function () {
 
-        	var xhr = new XMLHttpRequest();
-        	xhr.open("GET", "http://192.168.100.111/login.aspx", true);
-        	xhr.onreadystatechange = function () {
-        		alert("Hello XXX");
-        		if (xhr.readyState == 4 && xhr.status == 200)
-        			alert(xhr.responseText);
-        	};
-        	xhr.send();
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "http://192.168.100.111/ajaxpro/class1.ashx", true);
+			xhr.setRequestHeader("X-AjaxPro-Method", "Login");
+			// xhr.setRequestHeader("X-AjaxProJsonValid", "true");		// return dates as strings
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					alert(xhr.responseText);
 
-        }, 5000);
-    }
+
+					xhr = new XMLHttpRequest();
+					xhr.open("POST", "http://192.168.100.111/ajaxpro/class1.ashx", true);
+					xhr.setRequestHeader("X-AjaxPro-Method", "Test");
+					// xhr.setRequestHeader("X-AjaxProJsonValid", "true");		// return dates as strings
+					xhr.onreadystatechange = function () {
+						if (xhr.readyState == 4 && xhr.status == 200)
+							alert(xhr.responseText);
+					};
+					xhr.send("{}");
+
+				}
+			};
+			xhr.send("{\"userName\":\"admin\",\"password\":\"\"}");
+
+		}, 10);
+	}
 };
+
+setTimeout(function () {
+	app.receivedEvent("deviceready");
+}, 1);

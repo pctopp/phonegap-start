@@ -44,11 +44,14 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
+        alert("Hello");
+
         console.log('Received Event: ' + id);
 
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "http://192.168.100.111/login.aspx", true);
         xhr.onreadystatechange = function () {
+        	alert("Hello XXX");
         	if (xhr.readyState == 4 && xhr.status == 200)
         		alert(xhr.responseText);
         };

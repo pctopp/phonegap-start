@@ -45,5 +45,13 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://192.168.100.111/login.aspx", true);
+        xhr.onreadystatechange = function () {
+        	if (xhr.readyState == 4 && xhr.status == 200)
+        		alert(xhr.responseText);
+        };
+        xhr.send();
     }
 };

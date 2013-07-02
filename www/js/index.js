@@ -56,15 +56,15 @@ var app = {
 					alert(xhr.responseText);
 
 
-					xhr = new XMLHttpRequest();
-					xhr.open("POST", "http://192.168.100.111/ajaxpro/class1.ashx", true);
-					xhr.setRequestHeader("X-AjaxPro-Method", "Test");
+					var xhr1 = new XMLHttpRequest();
+					xhr1.open("POST", "http://192.168.100.111/ajaxpro/class1.ashx", true);
+					xhr1.setRequestHeader("X-AjaxPro-Method", "Test");
 					// xhr.setRequestHeader("X-AjaxProJsonValid", "true");		// return dates as strings
-					xhr.onreadystatechange = function () {
-						if (xhr.readyState == 4 && xhr.status == 200)
-							alert(xhr.responseText);
+					xhr1.onreadystatechange = function () {
+						if (xhr1.readyState == 4 && xhr1.status == 200)
+							alert(xhr1.responseText);
 					};
-					xhr.send("{}");
+					xhr1.send("{}");
 
 				}
 			};
